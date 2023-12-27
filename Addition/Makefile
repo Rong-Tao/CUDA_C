@@ -20,4 +20,7 @@ $(TARGET): $(SOURCE)
 clean:
 	rm -f $(TARGET)
 
-.PHONY: all clean
+# New target 'run' for cleaning and recompiling
+run: clean all
+
+.PHONY: all clean run
