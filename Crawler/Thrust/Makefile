@@ -4,7 +4,7 @@ NVCCFLAGS = -Xcompiler -fPIC
 LDFLAGS = -shared
 
 # Target
-TARGET = findIntersection
+TARGET = findIntersection.so
 
 # Source files
 SOURCE = findIntersection.cu
@@ -20,7 +20,4 @@ $(TARGET): $(SOURCE)
 clean:
 	rm -f $(TARGET)
 
-# New target 'run' for cleaning and recompiling
-run: clean all
-
-.PHONY: all clean run
+.PHONY: all clean
