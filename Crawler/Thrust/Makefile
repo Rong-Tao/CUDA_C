@@ -1,6 +1,6 @@
 # Compiler and Flags
 NVCC = nvcc
-NVCCFLAGS = -Xcompiler -fPIC
+NVCCFLAGS = -Xcompiler -fPIC --expt-extended-lambda
 LDFLAGS = -shared
 
 # Target
