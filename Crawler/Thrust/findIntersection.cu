@@ -20,7 +20,7 @@ void transformIntersectAndCopy(const thrust::device_vector<int>& d_list1,
     thrust::device_vector<int> d_result(d_list1.size());
 
     thrust::transform(d_list1.begin(), d_list1.end(), transformed.begin(), 
-                      [width, direction] __device__ (int x) {
+                      [width, direction] __device__ (int x) { 
                           switch (direction) {
                               case 0: return x + 2;           // Up
                               case 1: return x - 2;           // Down
@@ -29,18 +29,17 @@ void transformIntersectAndCopy(const thrust::device_vector<int>& d_list1,
                               default: return x;
                           }
                       });
-    std::cout << "L1: " << std::endl;
-    printvec(transformed);
+    //std::cout << "L1: " << std::endl;
+    //printvec(transformed);
     
     
     auto end = thrust::set_intersection(thrust::device, transformed.begin(), transformed.end(), 
-                                        d_list2.begin(), d_list2.end(), d_result.begin());
+                                        d_list2.begin(), d_list2.end(), d_result.begin()); 
 
-    // Resize the result vector to its new size and copy to host
     thrust::copy(d_result.begin(), d_result.end(), result);
-    printvec(d_result);
-    std::cout << "------------------" << std::endl;
-    // Store the size of the result
+    //printvec(d_result);
+    //std::cout << "------------------" << std::endl;
+
     resultSize =  end - d_result.begin();
 }
 extern "C" {
@@ -51,7 +50,7 @@ extern "C" {
 
         thrust::sort(d_list1.begin(), d_list1.end());
         thrust::sort(d_list2.begin(), d_list2.end());
-        
+
         transformIntersectAndCopy(d_list1, d_list2, 0, width, upResult, resultSizes[0]); // Up
         transformIntersectAndCopy(d_list1, d_list2, 1, width, downResult, resultSizes[1]); // Down
         transformIntersectAndCopy(d_list1, d_list2, 2, width, leftResult, resultSizes[2]); // Left
